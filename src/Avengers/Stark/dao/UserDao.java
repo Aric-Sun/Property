@@ -124,6 +124,9 @@ public class UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
+        } finally {
+            JDBCUtils.close(resultSet, preparedStatement, connection);
         }
         return all_userInfo_list;
     }

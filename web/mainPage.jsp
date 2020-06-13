@@ -46,23 +46,34 @@
                 <li>
                     <c:choose>
                         <c:when test="${user.user_type=='user'}">
-                            <a href="<%=request.getContextPath()%>/fee/pre_fee_personal.jsp"> 抄表数据 </a>
+                            <a href="<%=request.getContextPath()%>/currentCostServlet"> 抄表数据 </a>
                         </c:when>
                         <c:when test="${user.user_type=='manager'}">
-                            <a href="<%=request.getContextPath()%>/fee/pre_fee_manager.jsp"> 业主综合抄表数据 </a>
+                            <a href="<%=request.getContextPath()%>/allCostRecordServlet"> 业主综合抄表数据 </a>
                         </c:when>
                     </c:choose>
                 </li>
                 <li>
                     <c:choose>
                         <c:when test="${user.user_type=='user'}">
-                            <a href="<%=request.getContextPath()%>/fee/post_fee_personal.jsp"> 缴费情况 </a>
+                            <a href="<%=request.getContextPath()%>/paymentRecordServlet"> 缴费情况 </a>
                         </c:when>
                         <c:when test="${user.user_type=='manager'}">
-                            <a href="<%=request.getContextPath()%>/fee/post_fee_manager.jsp"> 业主缴费情况 </a>
+                            <a href="<%=request.getContextPath()%>/allPaymentRecordServlet"> 业主缴费情况 </a>
                         </c:when>
                     </c:choose>
                 </li>
+                <c:if test="${user.user_type=='manager'}">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            报表<b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<%=request.getContextPath()%>/unpaidRecordServlet">费用应收未收汇总表</a> </li>
+                            <li><a href="<%=request.getContextPath()%>/fee/sum_month_manger.jsp">月度账单总额汇总表</a> </li>
+                        </ul>
+                    </li>
+                </c:if>
             </ul>
             <ul class="nav navbar-nav navbar-right" >
                 <li class="dropdown">
@@ -85,6 +96,9 @@
         </div>
     </div>
 </nav>
+<div style="margin-top: 60px"></div>
+<div id="data" style="margin-top: 50px">
 
+</div>
 </body>
 </html>
