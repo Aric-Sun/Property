@@ -15,5 +15,9 @@ public class CostTotalTest {
         for (Cost_total cost_total : costTotalList) {
             System.out.println(cost_total);
         }
+        List<Cost_total> costTotalList1 = new CostTotalDao().querySumFeeNeed2PayByYear("2020");
+        for (Cost_total cost_total : costTotalList1) {
+            System.out.println(cost_total);
+        }
     }
 }

@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: IronMan
-  Date: 6.12/012
-  Time: 23:16
+  Date: 6.14/014
+  Time: 3:26
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="Avengers.Stark.dto.User" %>
@@ -10,33 +10,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>当月抄表数据</title>
+    <title>年度费用应收未收汇总表</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/bootstrap.min.css">
     <script src="<%=request.getContextPath()%>/js/jquery-3.2.1.min.js"></script>
     <!--Bootstrap 的 JavaScript 插件需要在引入bootstrap的js之前引入 jQuery-->
     <script src="<%=request.getContextPath()%>/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        // function searchUserInfo() {
-        //     // 声明变量
-        //     var input, filter, table, tr, td, i;
-        //     input = document.getElementById("searchInput");
-        //     filter = input.value.toUpperCase();
-        //     table = document.getElementById("current_cost_table");
-        //     tr = table.getElementsByTagName("tr");
-        //
-        //     // 循环表格每一行，查找匹配项
-        //     for (i = 1; i < tr.length; i++) {  // i=1 跳过字段名
-        //         td = tr[i].getElementsByTagName("td")[0];// 0表示第一列
-        //         if (td) {
-        //             if (td.innerHTML.indexOf(filter) > -1) {
-        //                 tr[i].style.display = "";
-        //             } else {
-        //                 tr[i].style.display = "none";
-        //             }
-        //         }
-        //     }
-        // }
+        function searchPaymentRecord(columnNum) {
+            // 声明变量
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("costTotal_list_table");
+            tr = table.getElementsByTagName("tr");
+
+            // 循环表格每一行，查找匹配项
+            for (i = 1; i < tr.length; i++) {  // i=1 跳过字段名
+                td = tr[i].getElementsByTagName("td")[columnNum];// 0表示第一列
+                if (td) {
+                    if (td.innerHTML.indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
         function callSystemPrint4Data(id) {
             var sprnhtml = $('#'+id).html();  // 获取区域内容
             var selfhtml = $('body').html();  // 获取当前页的html
@@ -72,7 +72,7 @@
                         </c:when>
                     </c:choose>
                 </li>
-                <li class="active">
+                <li>
                     <c:choose>
                         <c:when test="${user.user_type=='user'}">
                             <a href="<%=request.getContextPath()%>/currentCostServlet"> 抄表数据 </a>
@@ -93,7 +93,7 @@
                     </c:choose>
                 </li>
                 <c:if test="${user.user_type=='manager'}">
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             报表<b class="caret"></b>
                         </a>
@@ -105,6 +105,7 @@
                     </li>
                 </c:if>
             </ul>
+
             <ul class="nav navbar-nav navbar-right" >
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -123,6 +124,12 @@
                     </ul>
                 </li>
             </ul>
+            <form class="navbar-form navbar-left" role="search" action="<%=request.getContextPath()%>/costTotalByYearServlet">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="搜索年份（例如：2020）" name="year">
+                </div>
+                <button type="submit" class="btn btn-default">提交</button>
+            </form>
             <div class="navbar-right">
                 <button class="btn btn-default navbar-btn" onclick="callSystemPrint4Data('data')" id="print">
                     打印
@@ -132,6 +139,7 @@
     </div>
 </nav>
 <div style="margin-top: 60px"></div>
+<input class="form-control" type="text" id="searchInput" placeholder="搜索用户名……" onkeyup="searchPaymentRecord(0)">
 <div id="data">
     <%--<ul id="fee_tab" class="nav nav-tabs">--%>
     <%--    <li class="active">--%>
@@ -167,26 +175,19 @@
     <%--        分期房款--%>
     <%--    </div>--%>
     <%--</div>--%>
-    <%--<input class="form-control" type="text" id="searchInput" placeholder="搜索姓名……" onkeyup="searchUserInfo()">--%>
-    <table class="table table-striped" id="current_cost_table">
+    <table class="table table-striped" id="costTotal_list_table">
         <tr>
             <td>用户名</td>
-            <td>水费</td>
-            <td>电费</td>
-            <td>煤气费</td>
-            <td>供暖费</td>
-            <td>物业管理费</td>
-            <td>房租/房贷</td>
+            <td>年份</td>
+            <td>需要缴费的总额</td>
         </tr>
-        <tr>
-            <td>${current_cost.username}</td>
-            <td>${current_cost.water}</td>
-            <td>${current_cost.electricity}</td>
-            <td>${current_cost.gas}</td>
-            <td>${current_cost.heating}</td>
-            <td>${current_cost.managementFee}</td>
-            <td>${current_cost.housePayment}</td>
-        </tr>
+        <c:forEach var="costTotal" items="${costTotalByYearList}">
+            <tr>
+                <td>${costTotal.username}</td>
+                <td>${costTotal.month}</td>
+                <td>${costTotal.total_cost}</td>
+            </tr>
+        </c:forEach>
     </table>
 
 </div>

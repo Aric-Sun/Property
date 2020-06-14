@@ -33,7 +33,7 @@
         <div class="form-group" style="margin-left: 0px">
             <div class="col-sm-offset-2">
                 <label class="radio-inline">
-                    <input type="radio" name="user_type" value="user">业主
+                    <input type="radio" name="user_type" value="user" checked>业主
                 </label>
                 <label class="radio-inline">
                     <input type="radio" name="user_type" value="manager">管理员

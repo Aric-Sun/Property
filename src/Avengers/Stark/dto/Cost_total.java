@@ -2,12 +2,13 @@ package Avengers.Stark.dto;
 
 /**
  * 月度需要缴费的费用总和，按用户分，实体类
+ * 复用：年度查询
  * @author AricSun
  * @date 2020.06.14 3:32
  */
 public class Cost_total {
     private String username;  // 用户名
-    private String month;  //  月份，例如2020-04
+    private String month;  //  月份，例如2020-04 复用：年度：2020
     private double total_cost;  // 总额
 
     @Override

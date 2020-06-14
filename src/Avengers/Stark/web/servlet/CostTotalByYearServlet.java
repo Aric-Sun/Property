@@ -1,9 +1,7 @@
 package Avengers.Stark.web.servlet;
 
 import Avengers.Stark.dao.CostTotalDao;
-import Avengers.Stark.dao.UserDao;
 import Avengers.Stark.dto.Cost_total;
-import Avengers.Stark.dto.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,21 +13,21 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 月度费用总额，按业主分
+ * 年度费用总额，按业主分
  * @author AricSun
  * @date 2020.06.14 3:54
  */
-@WebServlet("/costTotalServlet")
-public class CostTotalServlet extends HttpServlet {
+@WebServlet("/costTotalByYearServlet")
+public class CostTotalByYearServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("GBK");
-        String month = req.getParameter("month");
-        List<Cost_total> costTotalList = new CostTotalDao().querySumFeeNeed2PayByMonth(month);
+        String year = req.getParameter("year");
+        List<Cost_total> costTotalByYearList = new CostTotalDao().querySumFeeNeed2PayByYear(year);
 
 //        System.out.println("allUserInfoServlet");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/fee/sum_month_manger.jsp");
-        req.setAttribute("costTotalList", costTotalList);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/fee/sum_year_manger.jsp");
+        req.setAttribute("costTotalByYearList", costTotalByYearList);
         requestDispatcher.forward(req,resp);
     }
 

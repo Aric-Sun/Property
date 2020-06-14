@@ -100,6 +100,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<%=request.getContextPath()%>/unpaidRecordServlet">费用应收未收汇总表</a> </li>
                             <li><a href="<%=request.getContextPath()%>/fee/sum_month_manger.jsp">月度账单总额汇总表</a> </li>
+                            <li><a href="<%=request.getContextPath()%>/fee/sum_year_manger.jsp">年度账单总额汇总表</a> </li>
                         </ul>
                     </li>
                 </c:if>

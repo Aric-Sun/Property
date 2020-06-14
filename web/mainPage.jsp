@@ -71,6 +71,7 @@
                         <ul class="dropdown-menu">
                             <li><a href="<%=request.getContextPath()%>/unpaidRecordServlet">费用应收未收汇总表</a> </li>
                             <li><a href="<%=request.getContextPath()%>/fee/sum_month_manger.jsp">月度账单总额汇总表</a> </li>
+                            <li><a href="<%=request.getContextPath()%>/fee/sum_year_manger.jsp">年度账单总额汇总表</a> </li>
                         </ul>
                     </li>
                 </c:if>
@@ -98,6 +99,11 @@
 </nav>
 <div style="margin-top: 60px"></div>
 <div id="data" style="margin-top: 50px">
+    <div class="col-xs-offset-1 col-sm-offset-1 col-md-offset-1 col-lg-offset-1" style="padding-top: 50px">
+        <h1>
+            欢迎进入物业管理信息系统
+        </h1>
+    </div>
 
 </div>
 </body>
